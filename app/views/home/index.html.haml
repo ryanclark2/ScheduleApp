@@ -1,52 +1,40 @@
-%h1 Pear
+%script{ :type => "text/javascript",
+         :src => "http://code.highcharts.com/highcharts.js" }
+%script{ :type => "text/javascript",
+         :src => "http://code.highcharts.com/highcharts-more.js" }
+%script{ :type => "text/javascript",
+         :src => "http://code.highcharts.com/modules/exporting.js" }
 
-%p
-  Welcome to Pear,
-  =link_to "Growstuff's", "http://growstuff.org/"
-  app for matching up coders for pair programming.
+%h1{ :style => "text-align: center" } Ninefold Support Coverage
 
-  - if notice
-    .alert.alert-success
-      =notice
-  - if alert
-    .alert
+%div{ :class => "row span12" }
+  %div{ :class => "span4" }
+    %p
+      - if notice
+        .alert.alert-success
+          =notice
+      - if alert
+        .alert
 
-- if current_user
-  %p
-    You're signed in as #{current_user.name}.
-    = link_to "Sign out.", destroy_user_session_path
-  = render :partial => "users/availability"
+    - if current_user
+      %p
+        You're signed in as #{current_user.name}.
+        = link_to "Sign out.", destroy_user_session_path
+      = render :partial => "users/availability"
 
-- else
-  %h2 Get started
-  %p= link_to "Sign in with Github", |
-    user_omniauth_authorize_path(:github), |
-    :class => 'btn btn-large btn-primary'
+    - else
+      %h2 Get started
+      %p= link_to "Sign in with Github", |
+        user_omniauth_authorize_path(:github), |
+        :class => 'btn btn-large btn-primary'
+      %p= link_to "Sign in with email", |
+        new_user_session_path, |
+        :class => 'btn btn-large btn-primary'
+      / %p= link_to "sign up with email", |
+      /   new_user_registration_path
 
-%h2 Who's available for coding?
-
-- if @available && @available.length > 0
-  %table.table.table-striped
-    %tr
-      %th Name
-      %th Timezone/approximate location
-      %th Offset (DST aware)
-      %th Can mentor
-      %th Wants a mentor
-    - @available.each do |u|
-      %tr
-        %td
-          = link_to u.name, u
-        %td
-          = u.tz_string
-        %td
-          = u.tz_offset
-        %td
-          - if u.can_mentor
-            %i.icon-ok
-        %td
-          - if u.wants_mentor
-            %i.icon-ok
-- else
-  %p Nobody :(
+  %div{ :class => "span6"}
+    %h2{ :style => "text-align: center" } Schedule
+    %div{ :id => "container",
+          :style => "min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto" }
 

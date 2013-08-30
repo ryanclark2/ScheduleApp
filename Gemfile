@@ -7,7 +7,7 @@ gem 'rack', '~>1.4.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'pg'
   gem "factory_girl_rails", "~> 4.0"
   gem 'multi_json'
 end
